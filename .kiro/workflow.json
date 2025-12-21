@@ -1,0 +1,15 @@
+{
+  "tool": "Kiro IDE",
+  "challenge": "Retro Revival",
+  "week": 4,
+  "project": "AI Assisted Minesweeper",
+  "workflow": [
+    "Prompt design",
+    "Game logic generation",
+    "Bug fixing",
+    "AI hint implementation",
+    "UI refinement",
+    "Final testing"
+  ],
+  "tech_stack": ["HTML", "CSS", "JavaScript"]
+}
