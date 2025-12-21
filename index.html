@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>�  Mario Minesweeper</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="game.js" defer></script>
+    <script src="ai.js" defer></script>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">🍄 MARIO MINESWEEPER 🍄</h1>
+        </header>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="grid-controls">
+                <label>Grid Size:</label>
+                <button id="btn4x4" class="grid-btn active" data-size="4">4×4</button>
+                <button id="btn6x6" class="grid-btn" data-size="6">6×6</button>
+                <button id="btn9x9" class="grid-btn" data-size="9">9×9</button>
+            </div>
+            
+            <div class="action-controls">
+                <button id="aiHintBtn" class="action-btn ai-btn">🤖 AI HINT</button>
+                <button id="restartBtn" class="action-btn restart-btn">🔄 RESTART</button>
+            </div>
+        </div>
+
+        <!-- Score Panel -->
+        <div class="score-panel">
+            <div class="score-item">
+                <span class="score-label">💣 Mines</span>
+                <span id="minesDisplay" class="score-value">004</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">⏰ Time</span>
+                <span id="timerDisplay" class="score-value">000</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">� Status</span>
+                <span id="statusDisplay" class="score-value">Ready</span>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div class="board-container">
+            <div id="gameBoard" class="game-board">
+                <!-- Tiles will be generated here -->
+            </div>
+        </div>
+
+        <!-- AI Tooltip -->
+        <div id="aiTooltip" class="ai-tooltip">AI Suggestion</div>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="gameOverOverlay" class="overlay">
+        <div class="overlay-content lose">
+            <h2>💥 GAME OVER!</h2>
+            <p>You hit a mine!</p>
+            <button id="gameOverRestart" class="overlay-btn">Try Again</button>
+        </div>
+    </div>
+
+    <!-- Win Overlay -->
+    <div id="winOverlay" class="overlay">
+        <div class="overlay-content win">
+            <h2>🎉 YOU WIN!</h2>
+            <p>All mines found!</p>
+            <button id="winRestart" class="overlay-btn">Play Again</button>
+        </div>
+    </div>
+</body>
+</html>

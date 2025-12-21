@@ -1,0 +1,472 @@
+/* Mario Minesweeper - Modern Retro Styling */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #87CEEB 0%, #32CD32 50%, #FFD700 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    border: 4px solid #8B4513;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FF4500;
+    text-shadow: 3px 3px 0px #8B0000;
+    margin-bottom: 10px;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.grid-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.grid-controls label {
+    font-weight: bold;
+    color: #8B4513;
+}
+
+.grid-btn {
+    background: linear-gradient(145deg, #FFD700, #FFA500);
+    border: 3px solid #FF4500;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #8B0000;
+}
+
+.grid-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.grid-btn.active {
+    background: linear-gradient(145deg, #32CD32, #228B22);
+    color: white;
+    border-color: #006400;
+}
+
+.action-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 3px solid transparent;
+}
+
+.ai-btn {
+    background: linear-gradient(145deg, #FF69B4, #FF1493);
+    color: white;
+    border-color: #8B008B;
+}
+
+.ai-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 20, 147, 0.4);
+}
+
+.ai-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.restart-btn {
+    background: linear-gradient(145deg, #4169E1, #0000CD);
+    color: white;
+    border-color: #000080;
+}
+
+.restart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 205, 0.4);
+}
+
+/* Score Panel */
+.score-panel {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    background: linear-gradient(145deg, #8B4513, #654321);
+    border-radius: 15px;
+    padding: 15px;
+    border: 3px solid #A0522D;
+}
+
+.score-item {
+    text-align: center;
+    color: white;
+}
+
+.score-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.score-value {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+}
+
+/* Game Board */
+.board-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.game-board {
+    display: grid;
+    gap: 2px;
+    padding: 15px;
+    background: linear-gradient(145deg, #8B4513, #654321);
+    border-radius: 15px;
+    border: 4px solid #A0522D;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Dynamic Grid Sizes */
+.game-board.size-4 {
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(4, 50px);
+}
+
+.game-board.size-6 {
+    grid-template-columns: repeat(6, 42px);
+    grid-template-rows: repeat(6, 42px);
+}
+
+.game-board.size-9 {
+    grid-template-columns: repeat(9, 35px);
+    grid-template-rows: repeat(9, 35px);
+}
+
+/* Tiles */
+.tile {
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.size-4 .tile {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+}
+
+.size-6 .tile {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+}
+
+.size-9 .tile {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+}
+
+/* Hidden Tiles - Mario Block Style */
+.tile.hidden {
+    background: linear-gradient(145deg, #FFD700, #FFA500);
+    border: 2px solid #FF8C00;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.5),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tile.hidden:hover {
+    background: linear-gradient(145deg, #FFFF00, #FFD700);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.3),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+.tile.hidden:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Revealed Tiles - Flat Style */
+.tile.revealed {
+    background: linear-gradient(145deg, #F5F5DC, #DCDCDC);
+    border: 2px solid #A9A9A9;
+    cursor: default;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: revealPop 0.3s ease;
+}
+
+@keyframes revealPop {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Flagged Tiles */
+.tile.flagged {
+    background: linear-gradient(145deg, #FF4500, #DC143C);
+    color: #FFFF00;
+    font-size: 20px;
+    border: 2px solid #8B0000;
+    animation: flagWave 0.4s ease;
+}
+
+@keyframes flagWave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+/* Mine Tiles */
+.tile.mine {
+    background: linear-gradient(145deg, #FF0000, #8B0000);
+    color: #FFFF00;
+    font-size: 18px;
+    border: 2px solid #4B0000;
+    animation: explode 0.5s ease;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); background: #FFFF00; }
+    100% { transform: scale(1); }
+}
+
+/* AI Hint Highlight */
+.tile.ai-hint {
+    border: 3px solid #FF69B4 !important;
+    box-shadow: 
+        0 0 15px rgba(255, 105, 180, 0.8),
+        0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    animation: aiGlow 2s ease-in-out infinite;
+}
+
+@keyframes aiGlow {
+    0%, 100% { 
+        border-color: #FF69B4;
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+    }
+    50% { 
+        border-color: #FF1493;
+        box-shadow: 0 0 25px rgba(255, 20, 147, 1);
+    }
+}
+
+/* Number Colors */
+.tile.num-1 { color: #0000FF; }
+.tile.num-2 { color: #008000; }
+.tile.num-3 { color: #FF0000; }
+.tile.num-4 { color: #000080; }
+.tile.num-5 { color: #800000; }
+.tile.num-6 { color: #008080; }
+.tile.num-7 { color: #000000; }
+.tile.num-8 { color: #808080; }
+
+/* AI Tooltip */
+.ai-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.ai-tooltip.show {
+    opacity: 1;
+}
+
+/* Overlays */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 4px solid;
+    animation: overlaySlide 0.4s ease;
+}
+
+.overlay-content.lose {
+    border-color: #FF0000;
+    background: linear-gradient(145deg, #FFB6C1, #FFA0B4);
+}
+
+.overlay-content.win {
+    border-color: #32CD32;
+    background: linear-gradient(145deg, #98FB98, #90EE90);
+}
+
+@keyframes overlaySlide {
+    0% { transform: scale(0.5) translateY(-50px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.overlay-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #8B0000;
+}
+
+.overlay-content p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #4B0000;
+}
+
+.overlay-btn {
+    background: linear-gradient(145deg, #4169E1, #0000CD);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.overlay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 205, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .game-container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .score-panel {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .size-4 .tile {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .size-6 .tile {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+    
+    .size-9 .tile {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+    
+    .game-board.size-4 {
+        grid-template-columns: repeat(4, 45px);
+        grid-template-rows: repeat(4, 45px);
+    }
+    
+    .game-board.size-6 {
+        grid-template-columns: repeat(6, 38px);
+        grid-template-rows: repeat(6, 38px);
+    }
+    
+    .game-board.size-9 {
+        grid-template-columns: repeat(9, 32px);
+        grid-template-rows: repeat(9, 32px);
+    }
+}
