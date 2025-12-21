@@ -40,5 +40,8 @@ This keeps the game fair while helping players make informed decisions.
 
 ---
 
-## 📂 Project Structure
+## team
+-Ruhit das
+-Subhan bora
+- kasturi das
 
