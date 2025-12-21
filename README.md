@@ -1,4 +1,4 @@
-# Retro Revival – AI Assisted Minesweeper 🎮🤖
+# Retro Revival – AI Assisted Minesweeper
 
 This project is a modern-retro reimagination of the classic Minesweeper game,
 built as part of the **Retro Revival (Week 4)** challenge using **Kiro IDE**.
