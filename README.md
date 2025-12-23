@@ -41,7 +41,7 @@ This keeps the game fair while helping players make informed decisions.
 ---
 
 ## team
--Ruhit das
--Subhan bora
+- Ruhit das
+- Subhan bora
 - kasturi das
 
